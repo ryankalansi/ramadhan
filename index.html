@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selamat Berbuka Puasa</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #1e2b45;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        perspective: 1000px;
+        flex-direction: column;
+      }
+
+      .container {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        height: 300px;
+        margin: 0 20px;
+      }
+
+      .envelope {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          #ca9f68 0%,
+          #e6c687 50%,
+          #f2d493 100%
+        );
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transform-style: preserve-3d;
+        transition: transform 1s ease;
+      }
+
+      .envelope-flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(135deg, #e6c687 0%, #d4ad76 100%);
+        clip-path: polygon(0 0, 50% 50%, 100% 0);
+        transform-origin: top;
+        transition: transform 0.5s ease 0.5s;
+        z-index: 2;
+      }
+
+      .envelope.open .envelope-flap {
+        transform: rotateX(180deg);
+        transition-delay: 0s;
+      }
+
+      .envelope.open {
+        transform: rotateY(10deg) translateZ(50px);
+      }
+
+      .card {
+        position: absolute;
+        width: 90%;
+        height: 90%;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+        top: 5%;
+        left: 5%;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        transform: translateZ(-5px) scale(0.9);
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.3s ease;
+        z-index: 1;
+        background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23be9c5a' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      }
+
+      .envelope.open .card {
+        transform: translateZ(20px) translateY(-40px) scale(1);
+        opacity: 1;
+        transition-delay: 0.5s;
+      }
+
+      .message-title {
+        color: #8d602e;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+      }
+
+      .message {
+        color: #5a3c1e;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      .moon-star {
+        margin-top: 15px;
+        position: relative;
+        height: 60px;
+        width: 100%;
+      }
+
+      .moon {
+        width: 40px;
+        height: 40px;
+        background-color: #f7e8c6;
+        border-radius: 50%;
+        box-shadow: 0 0 15px rgba(247, 232, 198, 0.8);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        overflow: hidden;
+      }
+
+      .moon::after {
+        content: "";
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        background-color: #1e2b45;
+        border-radius: 50%;
+        top: -8px;
+        right: -8px;
+      }
+
+      .star {
+        position: absolute;
+        background-color: #f7e8c6;
+        clip-path: polygon(
+          50% 0%,
+          61% 35%,
+          98% 35%,
+          68% 57%,
+          79% 91%,
+          50% 70%,
+          21% 91%,
+          32% 57%,
+          2% 35%,
+          39% 35%
+        );
+        opacity: 0;
+        box-shadow: 0 0 5px rgba(247, 232, 198, 0.8);
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          max-width: 320px;
+          height: 240px;
+        }
+
+        .message-title {
+          font-size: 1.2rem;
+        }
+
+        .message {
+          font-size: 1rem;
+        }
+      }
+
+      .instructions {
+        position: absolute;
+        bottom: 20px;
+        color: #f7e8c6;
+        font-size: 1rem;
+        opacity: 0.8;
+        text-align: center;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="envelope">
+        <div class="envelope-flap"></div>
+        <div class="card">
+          <div class="message-title">Selamat Berbuka Puasa</div>
+          <div class="message">Sakhila Nathania</div>
+          <div class="moon-star">
+            <div class="moon"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="instructions">Klik untuk membuka amplop</div>
+
+    <script>
+      // Menjalankan script saat halaman dimuat
+      window.onload = function () {
+        const envelope = document.querySelector(".envelope");
+        const instructions = document.querySelector(".instructions");
+
+        // Open envelope on click
+        envelope.addEventListener("click", function () {
+          envelope.classList.toggle("open");
+
+          // Show stars only when envelope is open
+          if (envelope.classList.contains("open")) {
+            createStars();
+            instructions.style.opacity = "0";
+          } else {
+            // Remove stars when envelope closes
+            const stars = document.querySelectorAll(".star");
+            stars.forEach((star) => star.remove());
+            instructions.style.opacity = "0.8";
+          }
+        });
+
+        function createStars() {
+          const moonStar = document.querySelector(".moon-star");
+
+          // Create 15 stars with random positions
+          for (let i = 0; i < 15; i++) {
+            const star = document.createElement("div");
+            star.classList.add("star");
+
+            // Random size between 4px and 12px
+            const size = Math.random() * 8 + 4;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+
+            // Random position
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 60;
+            star.style.left = `${posX}%`;
+            star.style.top = `${posY}%`;
+
+            // Add star to container
+            moonStar.appendChild(star);
+
+            // Animate stars with delay
+            setTimeout(() => {
+              star.style.opacity = "1";
+
+              // Animate falling stars
+              if (i % 3 === 0) {
+                setTimeout(() => {
+                  star.style.transition =
+                    "transform 2s ease-in, opacity 1.5s ease-out";
+                  star.style.transform = `translate(${
+                    (Math.random() - 0.5) * 50
+                  }px, ${Math.random() * 100 + 50}px)`;
+                  star.style.opacity = "0";
+
+                  // Remove star after animation
+                  setTimeout(() => {
+                    star.remove();
+
+                    // Create new star to replace
+                    if (envelope.classList.contains("open")) {
+                      createSingleStar();
+                    }
+                  }, 2000);
+                }, Math.random() * 3000 + 1000);
+              }
+            }, i * 100);
+          }
+        }
+
+        function createSingleStar() {
+          const moonStar = document.querySelector(".moon-star");
+          const star = document.createElement("div");
+          star.classList.add("star");
+
+          // Random size between 4px and 12px
+          const size = Math.random() * 8 + 4;
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+
+          // Start position at top
+          const posX = Math.random() * 100;
+          star.style.left = `${posX}%`;
+          star.style.top = "0%";
+          star.style.opacity = "1";
+
+          // Add star to container
+          moonStar.appendChild(star);
+
+          // Animate falling
+          setTimeout(() => {
+            star.style.transition =
+              "transform 2s ease-in, opacity 1.5s ease-out";
+            star.style.transform = `translate(${
+              (Math.random() - 0.5) * 50
+            }px, ${Math.random() * 100 + 50}px)`;
+            star.style.opacity = "0";
+
+            // Remove star after animation
+            setTimeout(() => {
+              star.remove();
+
+              // Create new star if envelope still open
+              if (envelope.classList.contains("open")) {
+                createSingleStar();
+              }
+            }, 2000);
+          }, 100);
+        }
+      };
+    </script>
+  </body>
+</html>
