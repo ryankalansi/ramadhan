@@ -202,21 +202,29 @@
     </div>
     <div class="instructions">Klik untuk membuka amplop</div>
 
+    <audio
+      id="openSound"
+      src="ramadan-in-medina-islamic-eid-celebration-music-267764.mp3"
+    ></audio>
+
     <script>
       // Menjalankan script saat halaman dimuat
       window.onload = function () {
         const envelope = document.querySelector(".envelope");
         const instructions = document.querySelector(".instructions");
+        const openSound = document.getElementById("openSound"); // Ambil elemen audio
 
         // Open envelope on click
         envelope.addEventListener("click", function () {
           envelope.classList.toggle("open");
 
-          // Show stars only when envelope is open
           if (envelope.classList.contains("open")) {
+            openSound.play(); // Mainkan suara saat amplop dibuka
             createStars();
             instructions.style.opacity = "0";
           } else {
+            openSound.pause(); // Hentikan suara saat amplop ditutup
+            openSound.currentTime = 0; // Reset ke awal
             // Remove stars when envelope closes
             const stars = document.querySelectorAll(".star");
             stars.forEach((star) => star.remove());
